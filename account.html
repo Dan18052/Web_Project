@@ -5,7 +5,7 @@
     <title>Tài khoản người dùng</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body {
+        html, body {
             margin: 0;
             padding: 0;
             background: #f4f4f4;
@@ -37,26 +37,78 @@
             background: rgba(0,0,0,0.21);
             z-index: 2;
         }
+        .header-account {
+            position: absolute;
+            top: 16px;
+            right: 24px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .account-img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #50C878;
+            background: #fff;
+        }
+        .account-name {
+            color: #fff;
+            font-weight: bold;
+            font-size: 1rem;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.30);
+        }
+        .logout-btn {
+            background: #fff;
+            color: #50C878;
+            border: none;
+            border-radius: 16px;
+            padding: 6px 18px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(80,200,120,0.10);
+            transition: background 0.2s, color 0.2s;
+        }
+        .logout-btn:hover {
+            background: #50C878;
+            color: #fff;
+        }
         .content {
             background: #fff;
-            max-width: 600px;
+            max-width: 650px;
             margin: -40px auto 0 auto;
-            border-radius: 18px 18px 0 0;
-            box-shadow: 0 4px 24px rgba(80,200,120,0.09);
             padding: 48px 24px 32px 24px;
-            min-height: 200px;
+            border-radius: 24px;
+            border: 3px solid #e5eaf2;      /* Viền rõ ràng */
+            box-shadow: 0 8px 32px 0 rgba(80,120,200,0.08), 
+                        0 2px 18px 0 rgba(80,200,120,0.10);
+            min-height: 120px;
             text-align: center;
             position: relative;
             z-index: 5;
+            /* Hiệu ứng mượt khi hover nếu muốn */
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+        .content:hover {
+            box-shadow: 0 12px 38px 0 rgba(80,120,200,0.13), 
+                        0 4px 24px 0 rgba(80,200,120,0.16);
+            border-color: #c1cfe8;
         }
         h1 {
             margin: 0;
             color: #19305a;
-            font-size: 2rem;
+            font-size: 2.3rem;
+            font-weight: bold;
         }
         @media (max-width: 600px) {
-            .top-bg { height: 120px; }
-            .content { padding: 24px 8px 20px 8px; }
+            .top-bg-video-container { height: 120px; }
+            .header-account { top: 8px; right: 6px; gap: 9px; }
+            .content { padding: 24px 8px 20px 8px; border-radius: 16px; }
+            .account-img { width: 28px; height: 28px; }
+            .logout-btn { padding: 4px 12px; font-size: 0.92rem; }
         }
     </style>
 </head>
@@ -67,23 +119,20 @@
             <!-- Nếu video không chạy, nền sẽ là màu #111 -->
         </video>
         <div class="top-bg-overlay"></div>
+        <div class="header-account">
+            <img src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png" 
+            id="Tài khoản" class="account-img">
+            <span class="account-name">Tài khoản</span>
+            <button class="logout-btn" onclick="handleLogout()">Đăng xuất</button>
+        </div>
     </div>
     <div class="content">
         <h1>Chào mừng bạn đến trang tài khoản!</h1>
-        <p>Nội dung tài khoản...</p>
-        <p>Nội dung tài khoản...</p>
-        <p>Nội dung tài khoản...</p>
-        <p>Nội dung tài khoản...</p>
-        <p>Nội dung tài khoản...</p>
-        <p>Nội dung tài khoản...</p>
-        <p>Nội dung tài khoản...</p>
-        <p>Nội dung tài khoản...</p>
-        <p>Nội dung tài khoản...</p>
-        <p>Nội dung tài khoản...</p>
-        <p>Nội dung tài khoản...</p>
-        <p>Nội dung tài khoản...</p>
-        <p>Nội dung tài khoản...</p>
-        <p>Nội dung tài khoản...</p>
     </div>
+    <script> 
+        function handleLogout() {
+            window.location.href = "login.html";
+        }
+    </script>
 </body>
 </html>
