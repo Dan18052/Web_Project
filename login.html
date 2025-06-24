@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang đăng nhập</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+        }
+        #bg-video {
+            position: fixed;
+            top: 0; left: 0;
+            min-width: 100vw;
+            min-height: 100vh;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            object-fit: cover;
+            filter: brightness(0.7) blur(2px);
+            background: #111;
+        }
+        .container {
+            text-align: center;
+            margin-top: 60px;
+            flex: 1;
+        }
+        .logo-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 24px;
+        }
+        .logo-row img {
+            width: 100px;
+            height: 100px;      
+            object-fit: cover;  
+            border-radius: 50%;  
+            animation: floatLogo 2.5s ease-in-out infinite alternate;
+            border: 3px solid #50C878;
+        }
+        @keyframes floatLogo {
+            0% { transform: translateY(0px) scale(1); filter: drop-shadow(0 2px 8px #b8eac9);}
+            70% { transform: translateY(-16px) scale(1.07); filter: drop-shadow(0 8px 16px #8cdbc0);}
+            100% { transform: translateY(-8px) scale(1.03); filter: drop-shadow(0 4px 12px #a4e2cb);}
+        }
+        h2 {
+            color: #fff;
+            margin-top: 16px;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.32);
+        }
+        .login-form {
+            margin: 0 auto;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.92);
+            padding: 32px 32px 24px 32px;
+            border-radius: 10px;
+            box-shadow: 0 4px 24px rgba(80,200,120,0.12);
+            max-width: 350px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .login-form input {
+            width: 220px;
+            max-width: 100%;
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #aaa;
+            font-size: 16px;
+            background: #f5f5f5;
+            color: #19305a;
+            transition: background 0.3s, box-shadow 0.3s;
+            box-shadow: 0 1px 2px rgba(80,200,120,0.07);
+        }
+        .login-form input:focus,
+        .login-form input:hover {
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(80,200,120,0.15);
+            outline: none;
+        }
+        .login-form button {
+            padding: 8px 24px;
+            border: none;
+            border-radius: 4px;
+            background: #50C878;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .login-form button:hover,
+        .login-form button:focus {
+            background: #399e5a;
+            color: white;
+            border: 1px solid #50C878;
+            box-shadow: 0 4px 16px rgba(80,200,120,0.18);
+        }
+        @media (max-width: 480px) {
+            .container {
+                margin-top: 24px;
+                padding: 0 2vw;
+            }
+            .logo-row {
+                gap: 16px;
+            }
+            .logo-row img {
+                width: 60px;
+            }
+            .login-form {
+                padding: 18px 1vw 16px 1vw;
+                max-width: none;
+                width: 100%;
+            }
+            .login-form input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video nền -->
+    <video autoplay loop muted playsinline id="bg-video">
+        <source src="backgound_hacker.mp4" type="video/mp4">
+        <!-- Nếu video không chạy, nền sẽ là màu #111 -->
+    </video>
+    <div class="container">
+        <div class="logo-row">
+            <img src="logo1.png" alt="Logo 1">
+            <img src="logo2.png" alt="Logo 2">
+        </div>
+        <h2> TRƯỜNG PHỔ THÔNG NĂNG KHIẾU - ĐẠI HỌC QUỐC GIA TP.HCM </h2>
+        <h2> TRƯỜNG TRUNG HỌC PHỔ THÔNG CHUYÊN TRẦN ĐẠI NGHĨA </h2>
+        
+        <form class="login-form" id="loginForm">
+            <input type="text" name="username" autocomplete="username" placeholder="Tên đăng nhập" required>
+            <input type="password" name="password" autocomplete="current-password" placeholder="Mật khẩu" required>
+            <button type="submit">Đăng nhập</button>
+            <div style="margin-top:8px;">
+                <a href="#" id="forgot-link" style="color:#399e5a; font-size:14px; text-decoration:none;">Quên mật khẩu?</a>
+            </div>
+            <div id="forgot-message" style="display:none; color:#e74c3c; font-size:14px; margin-top:10px;"></div>
+        </form>
+        <script> 
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                window.location.href = 'account.html';
+            });
+        
+            document.getElementById('forgot-link').addEventListener('click', function(e) { // sửa "funtion" thành "function"
+                e.preventDefault();
+                document.getElementById('forgot-message').textContent = "Vui lòng liên hệ giáo viên phụ trách để được cấp lại mật khẩu mới.";
+                document.getElementById('forgot-message').style.display = 'block';
+            });
+        </script>
+    </div>
+</body>
+</html>
