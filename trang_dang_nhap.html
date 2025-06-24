@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Trang đăng nhập</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             background: linear-gradient(135deg, #e3f0ff 0%, #e6fff5 100%);
             margin: 0;
             padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         .container {
             text-align: center;
-            margin-top: 100px;
+            margin-top: 60px;
+            flex: 1;
         }
         .logo-row {
             display: flex;
@@ -21,33 +26,61 @@
             margin-bottom: 24px;
         }
         .logo-row img {
-            width: 120px;
+            width: 100px;
             height: auto;
+            animation: floatLogo 2.5s ease-in-out infinite alternate;
         }
+
+        /* Logo floating animation */
+        @keyframes floatLogo {
+            0% { transform: translateY(0px) scale(1); filter: drop-shadow(0 2px 8px #b8eac9);}
+            70% { transform: translateY(-16px) scale(1.07); filter: drop-shadow(0 8px 16px #8cdbc0);}
+            100% { transform: translateY(-8px) scale(1.03); filter: drop-shadow(0 4px 12px #a4e2cb);}
+        }
+
         h2 {
             color: #19305a;
-            margin-top: 24px;
+            margin-top: 16px;
+            margin-bottom: 4px;
+        }
+        .subtitle {
+            color: #399e5a;
+            font-size: 18px;
+            margin-bottom: 16px;
+            margin-top: -8px;
         }
         .login-form {
+            margin: 0 auto;
             margin-top: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 12px;
+            background: #fff;
+            padding: 32px 32px 24px 32px;
+            border-radius: 10px;
+            box-shadow: 0 4px 24px rgba(80,200,120,0.12);
+            max-width: 350px;
+            width: 100%;
+            box-sizing: border-box;
         }
         .login-form input {
             width: 220px;
+            max-width: 100%;
             padding: 8px 12px;
             border-radius: 4px;
             border: 1px solid #aaa;
             font-size: 16px;
             background: #f5f5f5;
             color: #19305a;
-            transition: background 0.3s;
+            transition: background 0.3s, box-shadow 0.3s;
+            box-shadow: 0 1px 2px rgba(80,200,120,0.07);
         }
         .login-form input:focus,
         .login-form input:hover {
             background: #fff;
+            box-shadow: 0 4px 12px rgba(80,200,120,0.15);
+            outline: none;
         }
         .login-form button {
             padding: 8px 24px;
@@ -57,13 +90,38 @@
             color: white;
             font-size: 16px;
             cursor: pointer;
-            transition: background 0.3s, color 0.3s;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
         .login-form button:hover,
         .login-form button:focus {
-            background: #fff;
-            color: #50C878;
+            background: #399e5a;
+            color: white;
             border: 1px solid #50C878;
+            box-shadow: 0 4px 16px rgba(80,200,120,0.18);
+        }
+
+        /* Responsive for mobile */
+        @media (max-width: 480px) {
+            .container {
+                margin-top: 24px;
+                padding: 0 2vw;
+            }
+            .logo-row {
+                gap: 16px;
+            }
+            .logo-row img {
+                width: 60px;
+            }
+            .login-form {
+                padding: 18px 1vw 16px 1vw;
+                max-width: none;
+                width: 100%;
+            }
+            .login-form input {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -73,8 +131,8 @@
             <img src="logo1.png" alt="Logo 1">
             <img src="logo2.png" alt="Logo 2">
         </div>
-        <h2> TRƯỜNG PT NĂNG KHIẾU - ĐHQG TP.HCM </h2>
-        <h2> TRƯỜNG THPT CHUYÊN TĐN </h2>
+        <h2> TRƯỜNG PHỔ THÔNG NĂNG KHIẾU - ĐẠI HỌC QUỐC GIA TP.HCM </h2>
+        <h2> TRƯỜNG TRUNG HỌC PHỔ THÔNG CHUYÊN TRẦN ĐẠI NGHĨA </h2>
         
         <form class="login-form">
             <input type="text" name="username" autocomplete="username" placeholder="Tên đăng nhập" required>
