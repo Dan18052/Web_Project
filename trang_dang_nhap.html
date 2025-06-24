@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang đăng nhập</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #e3f0ff 0%, #e6fff5 100%);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            text-align: center;
+            margin-top: 100px;
+        }
+        .logo-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 24px;
+        }
+        .logo-row img {
+            width: 120px;
+            height: auto;
+        }
+        h2 {
+            color: #19305a;
+            margin-top: 24px;
+        }
+        .login-form {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .login-form input {
+            width: 220px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #aaa;
+            font-size: 16px;
+            background: #f5f5f5;
+            color: #19305a;
+            transition: background 0.3s;
+        }
+        .login-form input:focus,
+        .login-form input:hover {
+            background: #fff;
+        }
+        .login-form button {
+            padding: 8px 24px;
+            border: none;
+            border-radius: 4px;
+            background: #50C878;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+        .login-form button:hover,
+        .login-form button:focus {
+            background: #fff;
+            color: #50C878;
+            border: 1px solid #50C878;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-row">
+            <img src="logo1.png" alt="Logo 1">
+            <img src="logo2.png" alt="Logo 2">
+        </div>
+        <h2> TRƯỜNG PT NĂNG KHIẾU - ĐHQG TP.HCM </h2>
+        <h2> TRƯỜNG THPT CHUYÊN TĐN </h2>
+        
+        <form class="login-form">
+            <input type="text" name="username" autocomplete="username" placeholder="Tên đăng nhập" required>
+            <input type="password" name="password" autocomplete="current-password" placeholder="Mật khẩu" required>
+            <button type="submit">Đăng nhập</button>
+        </form>
+    </div>
+</body>
+</html>
