@@ -141,11 +141,21 @@
         <h2> TRƯỜNG PHỔ THÔNG NĂNG KHIẾU - ĐẠI HỌC QUỐC GIA TP.HCM </h2>
         <h2> TRƯỜNG TRUNG HỌC PHỔ THÔNG CHUYÊN TRẦN ĐẠI NGHĨA </h2>
         
-        <form class="login-form">
+        <form class="login-form" id="loginForm">
             <input type="text" name="username" autocomplete="username" placeholder="Tên đăng nhập" required>
             <input type="password" name="password" autocomplete="current-password" placeholder="Mật khẩu" required>
             <button type="submit">Đăng nhập</button>
+            <div style="margin-top:8px;">
+                <a href="#" style="color:#399e5a; font-size:14px; text-decoration:none;">Quên mật khẩu?</a>
+            </div>
         </form>
+        <script> 
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                window.location.href = 'account.html';
+            });
+        </script>
     </div>
 </body>
 </html>
