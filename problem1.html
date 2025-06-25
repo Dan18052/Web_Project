@@ -2,14 +2,16 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Problem 1</title>
+    <title>Cutting the Board</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Roboto font giống VOJ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
     <style>
         html, body {
             margin: 0;
             padding: 0;
             background: #f4f4f4;
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', Arial, sans-serif;
         }
         .top-bg-video-container {
             width: 100%;
@@ -76,6 +78,151 @@
             background: #50C878;
             color: #fff;
         }
+        /* Sidebar đẹp hơn */
+        .problem-sidebar {
+            font-family: 'Roboto', Arial, sans-serif;
+            position: absolute;
+            top: 220px;
+            right: 36px;
+            width: 292px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 6px 28px 0 rgba(44,62,80,0.13);
+            padding: 32px 28px 20px 28px;
+            color: #222;
+            font-size: 15px;
+            z-index: 20;
+            border: 1.5px solid #e7eaf3;
+            transition: box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 16px;
+        }
+        .problem-sidebar:hover {
+            box-shadow: 0 14px 40px 0 rgba(44,62,80,0.19);
+        }
+        .sidebar-btn {
+            background: linear-gradient(90deg, #3286e7 0%, #1858b8 100%);
+            color: #fff;
+            border: none;
+            border-radius: 9px;
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 0.2px;
+            padding: 13px 0;
+            margin-bottom: 14px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 2px 12px 0 rgba(50,134,231,0.09);
+            transition: background 0.22s, box-shadow 0.22s;
+        }
+        .sidebar-btn:hover {
+            background: linear-gradient(90deg, #1858b8 0%, #3286e7 100%);
+            box-shadow: 0 4px 18px 0 rgba(50,134,231,0.16);
+        }
+        .side-link-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .side-link {
+            color: #3286e7;
+            font-weight: 500;
+            font-size: 14.5px;
+            text-decoration: none;
+            padding-left: 3px;
+            border-left: 3px solid transparent;
+            transition: color 0.18s, border-color 0.18s;
+        }
+        .side-link:hover {
+            color: #1858b8;
+            border-left: 3px solid #3286e7;
+            background: #f5f7fc;
+        }
+        .side-section {
+            background: #f7f8fa;
+            border-radius: 7px;
+            padding: 10px 14px;
+            margin-bottom: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1.5px 4px rgba(50,134,231,0.04);
+            font-size: 15.2px;
+            font-weight: 400;
+        }
+        .side-label {
+            color: #7c889b;
+            font-size: 13.5px;
+            font-weight: 400;
+            min-width: 95px;
+        }
+        .side-value {
+            color: #19305a;
+            font-weight: 600;
+            font-size: 15.2px;
+            text-align: right;
+        }
+        .side-section.languages {
+            display: block;
+            padding: 10px 14px 7px 14px;
+        }
+        .side-label.languages {
+            margin-bottom: 3px;
+            display: block;
+        }
+        .side-list {
+            margin: 0 0 0 10px;
+            padding: 0;
+            font-size: 14px;
+        }
+        .side-list li {
+            margin-bottom: 2px;
+        }
+        @media (max-width: 1200px) {
+            .problem-sidebar {
+                right: 2vw;
+            }
+            .problem-title-only {
+                margin-right: 340px;
+            }
+        }
+        @media (max-width: 1000px) {
+            .problem-title-only { padding: 18px 4vw; margin-right: 0;}
+            .problem-sidebar {
+                position: static;
+                width: 100%;
+                margin: 20px 0 0 0;
+                top: unset; right: unset;
+            }
+        }
+        @media (max-width: 700px) {
+            .problem-title-only { padding: 8px 2vw; }
+            .problem-title-only h1 { font-size: 1.25rem;}
+        }
+        .problem-title-only {
+            max-width: 900px;
+            margin: 60px auto 40px 40px;
+            background: #fff;
+            border-radius: 18px;
+            border: 2px solid #e5eaf2;
+            box-shadow: 0 4px 18px 0 rgba(80,120,200,0.09), 0 2px 10px 0 rgba(80,200,120,0.06);
+            padding: 48px 32px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .problem-title-only h1 {
+            margin: 0;
+            color: #1a336a;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
     </style>
 </head>
 <body>
@@ -90,8 +237,51 @@
             <button class="logout-btn" onclick="handleLogout()">Đăng xuất</button>
         </div>
     </div>
+    <!-- Sidebar phải VOJ-style đẹp hơn, bỏ editorial và author -->
+    <div class="problem-sidebar">
+        <a class="sidebar-btn" href="submit_problem.html" id="submitBtn">Submit solution</a>
+        <div class="side-link-group">
+            <a class="side-link" href="#">All submissions</a>
+            <a class="side-link" href="#">Best submissions</a>
+        </div>
+        <div class="side-section">
+            <span class="side-label">Points:</span>
+            <span class="side-value">0.10 (partial)</span>
+        </div>
+        <div class="side-section">
+            <span class="side-label">Time limit:</span>
+            <span class="side-value">1.0s</span>
+        </div>
+        <div class="side-section">
+            <span class="side-label">Memory limit:</span>
+            <span class="side-value">256M</span>
+        </div>
+        <div class="side-section">
+            <span class="side-label">Input:</span>
+            <span class="side-value">stdin</span>
+        </div>
+        <div class="side-section">
+            <span class="side-label">Output:</span>
+            <span class="side-value">stdout</span>
+        </div>
+        <div class="side-section languages">
+            <span class="side-label languages">Allowed languages:</span>
+            <ul class="side-list">
+                <li>C, C++, Go, Java, Kotlin, Pascal, PyPy, Python, Rust, Scratch</li>
+            </ul>
+        </div>
+    </div>
+    <div class="problem-title-only">
+        <h1>Cutting the Board</h1>
+    </div>
     <script src="avatar.js"></script>
     <script>
+        document.getElementById('submitBtn').onclick = function(e) {
+            e.preventDefault();
+            localStorage.setItem('currentProblemName', 'Cutting the Board');
+            localStorage.setItem('currentProblemLink', window.location.href);
+            window.location.href = "submit_problem.html";
+        };
         function handleLogout() {
             localStorage.removeItem('username');
             window.location.href = "login.html";
