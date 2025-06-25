@@ -239,7 +239,7 @@
     </div>
     <!-- Sidebar phải VOJ-style đẹp hơn, bỏ editorial và author -->
     <div class="problem-sidebar">
-        <a class="sidebar-btn" href="submit_problem.html" id="submitBtn">Submit solution</a>
+        <a class="sidebar-btn" href="#" id="submitBtn">Submit solution</a>
         <div class="side-link-group">
             <a class="side-link" href="#">All submissions</a>
             <a class="side-link" href="#">Best submissions</a>
@@ -280,7 +280,7 @@
             e.preventDefault();
             localStorage.setItem('currentProblemName', 'Cutting the Board');
             localStorage.setItem('currentProblemLink', window.location.href);
-            window.location.href = "submit_problem.html";
+            window.location.href = "submit_solution.html";
         };
         function handleLogout() {
             localStorage.removeItem('username');
