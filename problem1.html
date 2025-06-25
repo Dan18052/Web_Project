@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Cutting the Board</title>
+    <title>TWOKNIGHTS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Roboto font giống VOJ -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
@@ -78,13 +78,81 @@
             background: #50C878;
             color: #fff;
         }
-        /* Sidebar đẹp hơn */
+        .problem-title-only {
+            max-width: 900px;
+            margin: 60px auto 40px 40px;
+            background: #fff;
+            border-radius: 18px;
+            border: 2px solid #e5eaf2;
+            box-shadow: 0 4px 18px 0 rgba(80,120,200,0.09), 0 2px 10px 0 rgba(80,200,120,0.06);
+            padding: 48px 32px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .problem-title-only h1 {
+            margin: 0;
+            color: #1a336a;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+        .problem-main-flex {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 28px;
+        }
+        .problem-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .problem-desc {
+            max-width: 900px;
+            margin: 18px auto 0 auto;
+            background: #fff;
+            border-radius: 18px;
+            border: 1.5px solid #e5eaf2;
+            box-shadow: 0 1.5px 8px 0 rgba(80,120,200,0.05), 0 1px 4px 0 rgba(80,200,120,0.03);
+            padding: 30px 28px;
+            color: #1a336a;
+            font-size: 1.08rem;
+            line-height: 1.7;
+        }
+        .problem-desc pre, .problem-desc code {
+            background: #f7f8fa;
+            border-radius: 7px;
+            padding: 6px 10px;
+            color: #222;
+            font-size: 1.02em;
+            display: inline-block;
+            overflow-x: auto;
+        }
+        .problem-desc .sample-header {
+            color: #1858b8;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+        .problem-desc .sample-block {
+            background: #f9fafc;
+            border-radius: 6px;
+            padding: 8px 11px;
+            border: 1px solid #e5eaf2;
+            margin: 7px 0 14px 0;
+            font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+            color: #222;
+            font-size: 1.03em;
+            white-space: pre;
+        }
         .problem-sidebar {
-            font-family: 'Roboto', Arial, sans-serif;
-            position: absolute;
-            top: 220px;
-            right: 36px;
-            width: 292px;
+            width: 320px;
+            min-width: 240px;
+            max-width: 350px;
+            position: static;
+            margin-top: 30px;
             background: #fff;
             border-radius: 18px;
             box-shadow: 0 6px 28px 0 rgba(44,62,80,0.13);
@@ -182,46 +250,25 @@
         .side-list li {
             margin-bottom: 2px;
         }
-        @media (max-width: 1200px) {
-            .problem-sidebar {
-                right: 2vw;
-            }
-            .problem-title-only {
-                margin-right: 340px;
-            }
-        }
         @media (max-width: 1000px) {
-            .problem-title-only { padding: 18px 4vw; margin-right: 0;}
+            .problem-main-flex {
+                flex-direction: column;
+                gap: 14px;
+                align-items: stretch;
+            }
             .problem-sidebar {
-                position: static;
                 width: 100%;
-                margin: 20px 0 0 0;
-                top: unset; right: unset;
+                margin-top: 0;
+                max-width: 100%;
+            }
+            .problem-content {
+                max-width: 100%;
             }
         }
         @media (max-width: 700px) {
             .problem-title-only { padding: 8px 2vw; }
             .problem-title-only h1 { font-size: 1.25rem;}
-        }
-        .problem-title-only {
-            max-width: 900px;
-            margin: 60px auto 40px 40px;
-            background: #fff;
-            border-radius: 18px;
-            border: 2px solid #e5eaf2;
-            box-shadow: 0 4px 18px 0 rgba(80,120,200,0.09), 0 2px 10px 0 rgba(80,200,120,0.06);
-            padding: 48px 32px;
-            min-height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .problem-title-only h1 {
-            margin: 0;
-            color: #1a336a;
-            font-size: 2.2rem;
-            letter-spacing: 1px;
-            font-weight: 700;
+            .problem-desc { padding: 20px 8px; }
         }
     </style>
 </head>
@@ -237,41 +284,73 @@
             <button class="logout-btn" onclick="handleLogout()">Đăng xuất</button>
         </div>
     </div>
-    <div class="problem-sidebar">
-        <a class="sidebar-btn" href="#" id="submitBtn">Submit solution</a>
-        <div class="side-link-group">
-            <a class="side-link" href="#">All submissions</a>
-            <a class="side-link" href="#">Best submissions</a>
-        </div>
-        <div class="side-section">
-            <span class="side-label">Points:</span>
-            <span class="side-value">0.10 (partial)</span>
-        </div>
-        <div class="side-section">
-            <span class="side-label">Time limit:</span>
-            <span class="side-value">1.0s</span>
-        </div>
-        <div class="side-section">
-            <span class="side-label">Memory limit:</span>
-            <span class="side-value">256M</span>
-        </div>
-        <div class="side-section">
-            <span class="side-label">Input:</span>
-            <span class="side-value">stdin</span>
-        </div>
-        <div class="side-section">
-            <span class="side-label">Output:</span>
-            <span class="side-value">stdout</span>
-        </div>
-        <div class="side-section languages">
-            <span class="side-label languages">Allowed languages:</span>
-            <ul class="side-list">
-                <li>C, C++, Go, Java, Kotlin, Pascal, PyPy, Python, Rust, Scratch</li>
-            </ul>
-        </div>
-    </div>
     <div class="problem-title-only">
-        <h1>Cutting the Board</h1>
+        <h1>TWOKNIGHTS</h1>
+    </div>
+    <div class="problem-main-flex">
+        <div class="problem-content">
+            <div class="problem-desc">
+                <b>Your task is to count for <code>k=1,2,…,n</code> the number of ways two knights can be placed on a <code>k×k</code> chessboard so that they do not attack each other.</b>
+                <br><br>
+                <b>Input</b><br>
+                The only input line contains an integer <b>n</b>.<br>
+                <br>
+                <b>Output</b><br>
+                Print <b>n</b> integers: the results.<br>
+                <br>
+                <b>Constraints</b><br>
+                <ul>
+                    <li>1 ≤ n ≤ 10000</li>
+                </ul>
+                <span class="sample-header">Example</span><br>
+                <span class="sample-block">Input:
+8
+                </span>
+                <span class="sample-block">Output:
+0
+6
+28
+96
+252
+550
+1056
+1848
+                </span>
+            </div>
+        </div>
+        <div class="problem-sidebar">
+            <a class="sidebar-btn" href="#" id="submitBtn">Submit solution</a>
+            <div class="side-link-group">
+                <a class="side-link" href="#">All submissions</a>
+                <a class="side-link" href="#">Best submissions</a>
+            </div>
+            <div class="side-section">
+                <span class="side-label">Points:</span>
+                <span class="side-value">1.0 (partial)</span>
+            </div>
+            <div class="side-section">
+                <span class="side-label">Time limit:</span>
+                <span class="side-value">1.0s</span>
+            </div>
+            <div class="side-section">
+                <span class="side-label">Memory limit:</span>
+                <span class="side-value">512MB</span>
+            </div>
+            <div class="side-section">
+                <span class="side-label">Input:</span>
+                <span class="side-value">stdin</span>
+            </div>
+            <div class="side-section">
+                <span class="side-label">Output:</span>
+                <span class="side-value">stdout</span>
+            </div>
+            <div class="side-section languages">
+                <span class="side-label languages">Allowed languages:</span>
+                <ul class="side-list">
+                    <li>C, C++, Go, Java, Kotlin, Pascal, PyPy, Python, Rust, Scratch</li>
+                </ul>
+            </div>
+        </div>
     </div>
     <script src="avatar.js"></script>
     <script>
@@ -282,7 +361,7 @@
         document.getElementById('submitBtn').onclick = function(e) {
             e.preventDefault();
             // Lưu thông tin bài toán vào localStorage để các trang submit/result biết
-            localStorage.setItem('currentProblemName', 'Cutting the Board');
+            localStorage.setItem('currentProblemName', 'TWOKNIGHTS');
             localStorage.setItem('currentProblemLink', window.location.href);
             window.location.href = "submit_solution.html";
         };
