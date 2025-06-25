@@ -140,9 +140,9 @@
             color: #22335a;
             font-size: 1.01rem;
         }
-        .ranking-table tr:nth-child(2) td { color: #e1b200; font-weight: bold; } /* vàng cho top 1 */
-        .ranking-table tr:nth-child(3) td { color: #aaa; font-weight: bold; }    /* bạc cho top 2 */
-        .ranking-table tr:nth-child(4) td { color: #b87333; font-weight: bold; } /* đồng cho top 3 */
+        .ranking-table tr:nth-child(2) td { color: #e1b200; font-weight: bold; }
+        .ranking-table tr:nth-child(3) td { color: #aaa; font-weight: bold; }
+        .ranking-table tr:nth-child(4) td { color: #b87333; font-weight: bold; }
         /* Problem List Table Styling */
         .problem-list-section {
             background: #fff;
@@ -314,6 +314,10 @@
     </div>
     <script src="avatar.js"></script>
     <script>
+        // Kiểm tra đăng nhập
+        if (!localStorage.getItem('username')) {
+            window.location.href = "login.html";
+        }
         function handleLogout() {
             localStorage.removeItem('username');
             window.location.href = "login.html";
