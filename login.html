@@ -113,6 +113,12 @@
             border: 1px solid #50C878;
             box-shadow: 0 4px 16px rgba(80,200,120,0.18);
         }
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+        }
         @media (max-width: 480px) {
             .container {
                 margin-top: 24px;
@@ -134,12 +140,48 @@
             }
         }
     </style>
+    <script>
+        // Danh sách tài khoản/mật khẩu hợp lệ (bạn có thể thêm/sửa theo ý muốn)
+        const validUsers = [
+            { username: "admin", password: "123456" },
+            { username: "admin1", password: "123456" },
+        ];
+
+        function resetForm() {
+            document.getElementById('loginForm').reset();
+        }
+
+        function showError(msg) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = msg;
+            errorDiv.style.display = 'block';
+        }
+
+        function hideError() {
+            document.getElementById('error-message').style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                hideError();
+                const username = document.querySelector('input[name="username"]').value.trim();
+                const password = document.querySelector('input[name="password"]').value;
+                const found = validUsers.find(user => user.username === username && user.password === password);
+                if (found) {
+                    localStorage.setItem('username', username);
+                    window.location.href = 'account.html';
+                } else {
+                    resetForm();
+                    showError("Sai tài khoản hoặc mật khẩu. Vui lòng kiểm tra lại");
+                }
+            });
+        });
+    </script>
 </head>
 <body>
-    <!-- Video nền -->
     <video autoplay loop muted playsinline id="bg-video">
         <source src="backgound_hacker.mp4" type="video/mp4">
-        <!-- Nếu video không chạy, nền sẽ là màu #111 -->
     </video>
     <div class="container">
         <div class="logo-row">
@@ -148,40 +190,12 @@
         </div>
         <h2> TRƯỜNG PHỔ THÔNG NĂNG KHIẾU - ĐẠI HỌC QUỐC GIA TP.HCM </h2>
         <h2> TRƯỜNG TRUNG HỌC PHỔ THÔNG CHUYÊN TRẦN ĐẠI NGHĨA </h2>
-        
-        <form class="login-form" id="loginForm">
-            <input type="text" name="username" autocomplete="username" placeholder="Tên đăng nhập" required>
+        <form class="login-form" id="loginForm" autocomplete="off">
+            <input type="text" name="username" autocomplete="username" placeholder="Tên đăng nhập" required autofocus>
             <input type="password" name="password" autocomplete="current-password" placeholder="Mật khẩu" required>
             <button type="submit">Đăng nhập</button>
-            <div style="margin-top:8px;">
-                <a href="#" id="forgot-link" style="color:#399e5a; font-size:14px; text-decoration:none;">Quên mật khẩu?</a>
-            </div>
-            <div id="forgot-message" style="display:none; color:#e74c3c; font-size:14px; margin-top:10px;"></div>
+            <div id="error-message" class="error-message"></div>
         </form>
-        <script>
-            // Đăng nhập: lưu tên đăng nhập vào localStorage
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                // Lấy tên đăng nhập từ input
-                var username = document.querySelector('input[name="username"]').value;
-                if (username) {
-                    localStorage.setItem('username', username);
-                    window.location.href = 'account.html';
-                } else {
-                    alert('Vui lòng nhập tên đăng nhập!');
-                }
-            });
-
-            document.getElementById('forgot-link').addEventListener('click', function(e) {
-                e.preventDefault();
-                var msg = document.getElementById('forgot-message');
-                msg.textContent = "Xem lại cái file tài khoản.";
-                msg.style.display = 'block';
-                setTimeout(function() {
-                    msg.style.display = 'none';
-                }, 2500);
-            });
-        </script>
     </div>
 </body>
 </html>
