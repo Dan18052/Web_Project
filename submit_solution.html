@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit Solution</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Roboto font giống VOJ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        .submit-container {
+            max-width: 900px;
+            margin: 48px auto 32px auto;
+            background: #fff;
+            border-radius: 15px;
+            border: 1.5px solid #e5eaf2;
+            box-shadow: 0 4px 20px 0 rgba(44,62,80,0.10), 0 1.5px 10px 0 rgba(80,200,120,0.07);
+            padding: 38px 32px 34px 32px;
+        }
+        .submit-title {
+            font-size: 2rem;
+            color: #1a336a;
+            font-weight: 700;
+            margin-bottom: 18px;
+            letter-spacing: 0.5px;
+        }
+        .submit-title a {
+            color: #2673dd;
+            text-decoration: none;
+        }
+        .submit-title a:hover {
+            text-decoration: underline;
+            color: #1858b8;
+        }
+        .submit-desc {
+            font-style: italic;
+            color: #444;
+            margin-bottom: 11px;
+            font-size: 1.05rem;
+        }
+        .submit-form {
+            margin-top: 12px;
+        }
+        .source-code-wrapper {
+            border: 1.5px solid #e0e4ef;
+            border-radius: 7px;
+            overflow: hidden;
+            background: #f9fafc;
+            margin-bottom: 12px;
+        }
+        .source-code-label {
+            background: #f3f3f9;
+            padding: 8px 14px;
+            font-size: 1rem;
+            color: #333;
+            border-bottom: 1px solid #e0e4ef;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .file-input {
+            margin-left: 6px;
+            font-size: 0.97rem;
+        }
+        .source-code-area {
+            width: 100%;
+            min-height: 260px;
+            max-height: 420px;
+            font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+            font-size: 1rem;
+            resize: vertical;
+            padding: 14px;
+            border: none;
+            outline: none;
+            background: #fff;
+            color: #1a336a;
+            border-radius: 0 0 7px 7px;
+            box-sizing: border-box;
+        }
+        .lang-select {
+            width: 100%;
+            font-size: 1rem;
+            margin: 12px 0 16px 0;
+            padding: 7px 12px;
+            border-radius: 6px;
+            border: 1.2px solid #b6c3db;
+            background: #f7fafd;
+            color: #19305a;
+        }
+        .submit-btn {
+            display: block;
+            margin-left: auto;
+            background: #2673dd;
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.07rem;
+            border: none;
+            border-radius: 7px;
+            padding: 10px 36px;
+            box-shadow: 0 2px 8px rgba(50,134,231,0.09);
+            cursor: pointer;
+            transition: background 0.17s, box-shadow 0.17s;
+        }
+        .submit-btn:hover {
+            background: #1858b8;
+            box-shadow: 0 4px 16px 0 rgba(50,134,231,0.16);
+        }
+        @media (max-width: 660px) {
+            .submit-container { padding: 12px 2vw; }
+            .submit-title { font-size: 1.18rem;}
+            .source-code-label { font-size: 0.98rem;}
+        }
+    </style>
+</head>
+<body>
+    <div class="submit-container">
+        <div class="submit-title">
+            Submit to <a id="problem-link" href="#">Tên bài toán</a>
+        </div>
+        <div class="submit-desc">
+            Paste your source code here or load it from a file:
+            <input class="file-input" type="file" id="source-file" accept=".cpp,.c,.py,.java,.kt,.pas,.go,.rs,.txt">
+        </div>
+        <form class="submit-form" id="submitForm" autocomplete="off">
+            <div class="source-code-wrapper">
+                <textarea class="source-code-area" id="source-code" spellcheck="false"
+                  placeholder="#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    // Your code here
+    return 0;
+}"></textarea>
+            </div>
+            <select class="lang-select" id="lang-select">
+                <option value="cpp17">C++17 (g++17 14.2.0)</option>
+                <option value="cpp20">C++20 (g++20)</option>
+                <option value="c11">C11 (gcc 11.2.0)</option>
+                <option value="python3">Python 3.10</option>
+                <option value="java">Java 21</option>
+                <option value="pascal">Pascal (fpc 3.0.4)</option>
+                <option value="go">Go (1.21)</option>
+                <option value="rust">Rust (1.75)</option>
+                <option value="scratch">Scratch 3.0</option>
+                <!-- Thêm các ngôn ngữ khác nếu muốn -->
+            </select>
+            <button type="submit" class="submit-btn">Submit!</button>
+        </form>
+    </div>
+    <script>
+        // Lấy tên bài toán từ URL hoặc localStorage để dùng chung cho mọi bài
+        const problemName = localStorage.getItem('currentProblemName') || "Tên bài toán";
+        const problemLink = localStorage.getItem('currentProblemLink') || "#";
+        document.getElementById('problem-link').textContent = problemName;
+        document.getElementById('problem-link').href = problemLink;
+
+        // Tự động load code từ file vào textarea
+        document.getElementById('source-file').addEventListener('change', function(e){
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt){
+                document.getElementById('source-code').value = evt.target.result;
+            };
+            reader.readAsText(file);
+        });
+
+        // Submit code (chỉ demo, bạn cần kết nối backend thực tế)
+        document.getElementById('submitForm').addEventListener('submit', function(e){
+            e.preventDefault();
+            alert('Đã nộp code cho bài "' + problemName + '" với ngôn ngữ ' +
+                document.getElementById('lang-select').selectedOptions[0].text);
+            // Thực tế: gửi code lên server ở đây
+        });
+    </script>
+</body>
+</html>
