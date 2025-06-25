@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Kết quả nộp bài</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Roboto font -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        .top-bg-video-container {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+        .top-bg-video-container video {
+            position: absolute;
+            top: 50%; left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(0.68) blur(2.25px);
+            z-index: 1;
+            background: #111;
+        }
+        .top-bg-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.21);
+            z-index: 2;
+        }
+        .header-account {
+            position: absolute;
+            top: 16px;
+            right: 24px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .account-img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #50C878;
+            background: #fff;
+        }
+        .account-name {
+            color: #fff;
+            font-weight: bold;
+            font-size: 1rem;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.30);
+        }
+        .logout-btn {
+            background: #fff;
+            color: #50C878;
+            border: none;
+            border-radius: 16px;
+            padding: 6px 18px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(80,200,120,0.10);
+            transition: background 0.2s, color 0.2s;
+        }
+        .logout-btn:hover {
+            background: #50C878;
+            color: #fff;
+        }
+        .result-container {
+            max-width: 710px;
+            margin: 52px auto 32px auto;
+            background: #fff;
+            border-radius: 15px;
+            border: 1.5px solid #e5eaf2;
+            box-shadow: 0 4px 20px 0 rgba(44,62,80,0.10), 0 1.5px 10px 0 rgba(80,200,120,0.07);
+            padding: 38px 32px 34px 32px;
+            min-height: 220px;
+        }
+        .result-title {
+            font-size: 1.5rem;
+            color: #1a336a;
+            font-weight: 700;
+            margin-bottom: 14px;
+            letter-spacing: 0.5px;
+        }
+        .result-problem {
+            font-size: 1.1rem;
+            color: #2673dd;
+            text-decoration: none;
+            font-weight: 500;
+            word-break: break-word;
+        }
+        .result-status {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin: 20px 0 6px 0;
+            color: #444;
+        }
+        .result-status[data-status="Accepted"] { color: #28b85b; }
+        .result-status[data-status="Wrong Answer"] { color: #e44; }
+        .result-status[data-status="Compile Error"] { color: #b85; }
+        .result-status[data-status="Time Limit"] { color: #b80; }
+        .result-status[data-status="Pending"],
+        .result-status[data-status="Running"] { color: #2673dd; }
+        .result-score {
+            font-size: 1.1rem;
+            color: #19305a;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        .result-detail {
+            background: #f7f8fa;
+            border-radius: 7px;
+            padding: 11px 17px;
+            margin-top: 15px;
+            color: #444;
+            font-size: 1.04rem;
+            min-height: 32px;
+            white-space: pre-line;
+            word-break: break-word;
+        }
+        .back-btn {
+            margin-top: 18px;
+            display: inline-block;
+            padding: 9px 24px;
+            font-size: 1rem;
+            background: linear-gradient(90deg, #3286e7 0%, #1858b8 100%);
+            color: #fff;
+            border: none;
+            border-radius: 7px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.18s;
+        }
+        .back-btn:hover {
+            background: linear-gradient(90deg, #1858b8 0%, #3286e7 100%);
+        }
+        @media (max-width: 900px) {
+            .result-container { max-width: 99vw; }
+        }
+        @media (max-width: 660px) {
+            .result-container { padding: 12px 2vw; }
+            .result-title { font-size: 1.13rem;}
+            .result-status { font-size: 1.12rem;}
+            .result-score { font-size: 1rem;}
+            .back-btn { font-size: 0.98rem; padding: 8px 14px; }
+        }
+        @media (max-width: 480px) {
+            .result-title { font-size: 1rem;}
+            .result-status { font-size: 0.98rem;}
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bg-video-container">
+        <video autoplay loop muted playsinline>
+            <source src="backgound_hacker.mp4" type="video/mp4">
+        </video>
+        <div class="top-bg-overlay"></div>
+        <div class="header-account">
+            <img src="" id="avatarImg" class="account-img">
+            <span class="account-name" id="accountName">Tài khoản</span>
+            <button class="logout-btn" onclick="handleLogout()">Đăng xuất</button>
+        </div>
+    </div>
+    <div class="result-container">
+        <div class="result-title">
+            Kết quả nộp bài cho
+            <a id="result-problem" class="result-problem" href="#">[Tên bài]</a>
+        </div>
+        <div class="result-status" id="result-status" data-status="Pending">Đang chấm...</div>
+        <div class="result-score" id="result-score"></div>
+        <div class="result-detail" id="result-detail"></div>
+        <a class="back-btn" id="back-btn" href="#">Quay lại bài toán</a>
+    </div>
+    <script>
+        // Lấy submissionId từ URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const submissionId = urlParams.get('id');
+
+        // Lấy thông tin bài toán từ localStorage nếu có
+        const problemName = localStorage.getItem('currentProblemName') || "Tên bài";
+        const problemLink = localStorage.getItem('currentProblemLink') || "#";
+        document.getElementById('result-problem').textContent = problemName;
+        document.getElementById('result-problem').href = problemLink;
+        document.getElementById('back-btn').href = problemLink;
+
+        // Hàm cập nhật kết quả từ backend (nếu có backend thật)
+        function pollResult() {
+            // ===========================
+            // == ĐÂY LÀ CHỖ BẠN CẦN SỬA KHI CÓ BACKEND THẬT ==
+            // ===========================
+            // Ví dụ nếu backend có API trả về như sau:
+            // fetch('/api/submission_result?id=' + encodeURIComponent(submissionId))
+            //   .then(res => res.json())
+            //   .then(data => {
+            //      showResult(data);
+            //      if (data.status === "Pending" || data.status === "Running")
+            //          setTimeout(pollResult, 2000);
+            //   });
+
+            // ===========================
+            // == DEMO MOCK DATA: XÓA HOẶC BỎ ĐI KHI DÙNG BACKEND THẬT ==
+            // ===========================
+            // Giả lập trạng thái cho demo (4s sau sẽ Accepted)
+            let mockStatus = localStorage.getItem('mockStatus_' + submissionId) || "Pending";
+            let mockScore = localStorage.getItem('mockScore_' + submissionId) || "";
+            let mockDetail = localStorage.getItem('mockDetail_' + submissionId) || "";
+            if (mockStatus === "Pending" || mockStatus === "Running") {
+                setTimeout(() => {
+                    localStorage.setItem('mockStatus_' + submissionId, "Accepted");
+                    localStorage.setItem('mockScore_' + submissionId, "100/100");
+                    localStorage.setItem('mockDetail_' + submissionId, "Chúc mừng! Bài làm đúng toàn bộ test.");
+                    showResult({
+                        status: "Accepted",
+                        score: "100/100",
+                        detail: "Chúc mừng! Bài làm đúng toàn bộ test."
+                    });
+                }, 4000);
+                showResult({
+                    status: mockStatus,
+                    score: mockScore,
+                    detail: "Đang chấm bài... Vui lòng đợi."
+                });
+            } else {
+                showResult({
+                    status: mockStatus,
+                    score: mockScore,
+                    detail: mockDetail
+                });
+            }
+            // ===========================
+        }
+
+        // Hiển thị kết quả ra giao diện
+        function showResult(data) {
+            const statusEl = document.getElementById('result-status');
+            statusEl.innerText = data.status === "Accepted" ? "Accepted (Chính xác)" :
+                                data.status === "Wrong Answer" ? "Sai đáp án" :
+                                data.status === "Compile Error" ? "Lỗi biên dịch" :
+                                data.status === "Time Limit" ? "Quá thời gian" :
+                                data.status === "Pending" ? "Đang chấm..." :
+                                data.status === "Running" ? "Đang chạy testcase..." :
+                                data.status || "";
+            statusEl.setAttribute('data-status', data.status || "");
+            document.getElementById('result-score').innerText = data.score ? ("Điểm: " + data.score) : "";
+            document.getElementById('result-detail').innerText = data.detail || "";
+            // Nếu vẫn đang chấm thì poll lại
+            if (data.status === "Pending" || data.status === "Running") {
+                setTimeout(pollResult, 2000);
+            }
+        }
+
+        // Bắt đầu polling
+        pollResult();
+    </script>
+</body>
+</html>
