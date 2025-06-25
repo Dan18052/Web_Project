@@ -82,14 +82,13 @@
             margin: -40px auto 0 auto;
             padding: 48px 24px 32px 24px;
             border-radius: 24px;
-            border: 3px solid #e5eaf2;      /* Viền rõ ràng */
+            border: 3px solid #e5eaf2;
             box-shadow: 0 8px 32px 0 rgba(80,120,200,0.08), 
                         0 2px 18px 0 rgba(80,200,120,0.10);
             min-height: 120px;
             text-align: center;
             position: relative;
             z-index: 5;
-            /* Hiệu ứng mượt khi hover nếu muốn */
             transition: box-shadow 0.2s, border-color 0.2s;
         }
         .content:hover {
@@ -97,50 +96,128 @@
                         0 4px 24px 0 rgba(80,200,120,0.16);
             border-color: #c1cfe8;
         }
-        .problem-list-box {
+        /* Layout for main section */
+        .main-flex-container {
+            max-width: 1200px;
+            margin: 40px auto 0 auto;
+            display: flex;
+            gap: 32px;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        /* Ranking Box */
+        .ranking-section {
             background: #fff;
-            max-width: 650px;
-            margin: 32px auto 0 auto;
-            padding: 40px 24px 24px 24px;
-            border-radius: 20px;
-            border: 2.5 solid #e5eaf2;
-            box-shadow: 0 8px 32px 0 rgba(80,120,200,0.08), 
-                        0 2px 18px 0 rgba(80,200,120,0.10);
-            min-height: 80px;
+            min-width: 260px;
+            max-width: 340px;
+            flex: 1 1 300px;
+            padding: 32px 20px 24px 20px;
+            border-radius: 22px;
+            border: 2.5px solid #e5eaf2;
+            box-shadow: 0 8px 32px 0 rgba(80,120,200,0.10), 0 2px 18px 0 rgba(80,200,120,0.09);
+        }
+        .ranking-section h2 {
+            color: #19305a;
+            font-size: 1.45rem;
+            font-weight: bold;
+            margin-bottom: 19px;
             text-align: center;
-            position: relative;
+        }
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+            background: #fff;
+        }
+        .ranking-table th, .ranking-table td {
+            border: 1.5px solid #dde2ec;
+            padding: 7px 10px;
+            text-align: center;
+        }
+        .ranking-table th {
+            background: #f7fafc;
+            font-weight: bold;
+            color: #22335a;
+            font-size: 1.01rem;
+        }
+        .ranking-table tr:nth-child(2) td { color: #e1b200; font-weight: bold; } /* vàng cho top 1 */
+        .ranking-table tr:nth-child(3) td { color: #aaa; font-weight: bold; }    /* bạc cho top 2 */
+        .ranking-table tr:nth-child(4) td { color: #b87333; font-weight: bold; } /* đồng cho top 3 */
+        /* Problem List Table Styling */
+        .problem-list-section {
+            background: #fff;
+            min-width: 400px;
+            flex: 3 1 600px;
+            padding: 40px 32px 32px 32px;
+            border-radius: 22px;
+            border: 2.5px solid #e5eaf2;
+            box-shadow: 0 8px 32px 0 rgba(80,120,200,0.10), 0 2px 18px 0 rgba(80,200,120,0.09);
             z-index: 5;
         }
-        .problem-list-box h2 {
-            margin: 0 0 12px 0;
+        .problem-list-section h2 {
             color: #19305a;
             font-size: 2rem;
             font-weight: bold;
-        }
-        .problem {
+            margin-bottom: 24px;
             text-align: left;
-            margin: 18px 0;
-            padding: 18px 16px;
-            border-radius: 12px;
-            background: #f7fafd;
-            border: 1.5px solid #e5eaf2;
-            box-shadow: 0 2px 8px rgba(80,120,200,0.06);
         }
-        .problem h3 {
-            margin: 0 0 8px 0;
-            font-size: 1.15rem;
-            color: #22335a;
+        .problem-table-wrapper {
+            overflow-x: auto;
         }
-        .problem p {
-            margin: 0;
+        .problem-table {
+            border-collapse: collapse;
+            width: 100%;
+            background: #fff;
             font-size: 1rem;
-            color: #333;
         }
-        h1 {
-            margin: 0;
-            color: #19305a;
-            font-size: 2.3rem;
+        .problem-table th, .problem-table td {
+            border: 1.5px solid #dde2ec;
+            padding: 8px 16px;
+            text-align: left;
+        }
+        .problem-table th {
+            background: #f7fafc;
             font-weight: bold;
+            color: #22335a;
+            font-size: 1.05rem;
+        }
+        .problem-table tr:hover {
+            background: #f0f6ff;
+        }
+        .problem-table a {
+            color: #1a4d97;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .problem-table a:hover {
+            text-decoration: underline;
+            color: #357ae8;
+        }
+        @media (max-width: 1020px) {
+            .main-flex-container {
+                flex-direction: column;
+                gap: 24px;
+                align-items: stretch;
+            }
+            .ranking-section, .problem-list-section {
+                max-width: 100%;
+                min-width: 0;
+            }
+        }
+        @media (max-width: 700px) {
+            .problem-list-section {
+                padding: 20px 4px 12px 4px;
+                border-radius: 12px;
+            }
+            .problem-table th, .problem-table td,
+            .ranking-table th, .ranking-table td {
+                padding: 6px 4px;
+                font-size: 0.92rem;
+            }
+            .ranking-section {
+                padding: 18px 4px 12px 4px;
+                border-radius: 12px;
+            }
         }
         @media (max-width: 600px) {
             .top-bg-video-container { height: 120px; }
@@ -150,6 +227,17 @@
             .logout-btn { padding: 4px 12px; font-size: 0.92rem; }
         }
     </style>
+    <script>
+        // Hiển thị tên đăng nhập
+        document.addEventListener('DOMContentLoaded', function() {
+            var accountName = localStorage.getItem('username') || 'Guest';
+            document.getElementById('accountName').textContent = accountName;
+        });
+        function handleLogout() {
+            localStorage.removeItem('username'); // Đăng xuất thì xóa tên
+            window.location.href = "login.html";
+        }
+    </script>
 </head>
 <body>
     <div class="top-bg-video-container">
@@ -161,17 +249,79 @@
         <div class="header-account">
             <img src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png" 
             id="Tài khoản" class="account-img">
-            <span class="account-name">Tài khoản</span>
+            <span class="account-name" id="accountName">Tài khoản</span>
             <button class="logout-btn" onclick="handleLogout()">Đăng xuất</button>
         </div>
     </div>
     <div class="content">
         <h1>Chào mừng bạn đến trang tài khoản!</h1>
     </div>
-    <div class="problem-list-box">
-        <h2>Problem list</h2>
-        <div class="problem"> 
-            
+    <div class="main-flex-container">
+        <!-- Ranking Section -->
+        <div class="ranking-section">
+            <h2>Ranking</h2>
+            <table class="ranking-table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>User</th>
+                        <th>Điểm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>guest1</td>
+                        <td>0.00</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>guest2</td>
+                        <td>0.00</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>guest3</td>
+                        <td>0.00</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>guest4</td>
+                        <td>0.00</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>guest5</td>
+                        <td>0.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Problem List Section -->
+        <div class="problem-list-section">
+            <h2>Problem list</h2>
+            <div class="problem-table-wrapper">
+                <table class="problem-table">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Problem</th>
+                            <th>Points</th>
+                            <th>% AC</th>
+                            <th># AC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><a href="problem1.html">Cutting the Board</a></td>
+                            <td>0.10</td>
+                            <td>34.4%</td>
+                            <td>489</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <script> 
