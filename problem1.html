@@ -237,7 +237,6 @@
             <button class="logout-btn" onclick="handleLogout()">Đăng xuất</button>
         </div>
     </div>
-    <!-- Sidebar phải VOJ-style đẹp hơn, bỏ editorial và author -->
     <div class="problem-sidebar">
         <a class="sidebar-btn" href="#" id="submitBtn">Submit solution</a>
         <div class="side-link-group">
@@ -276,8 +275,13 @@
     </div>
     <script src="avatar.js"></script>
     <script>
+        // Bắt buộc kiểm tra đăng nhập
+        if (!localStorage.getItem('username')) {
+            window.location.href = "login.html";
+        }
         document.getElementById('submitBtn').onclick = function(e) {
             e.preventDefault();
+            // Lưu thông tin bài toán vào localStorage để các trang submit/result biết
             localStorage.setItem('currentProblemName', 'Cutting the Board');
             localStorage.setItem('currentProblemLink', window.location.href);
             window.location.href = "submit_solution.html";
