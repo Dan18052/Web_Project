@@ -1,3 +1,8 @@
+// Bắt buộc kiểm tra đăng nhập ở đầu file (giúp bảo vệ mọi trang sử dụng avatar.js)
+if (!localStorage.getItem('username')) {
+    window.location.href = "login.html";
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     var accountName = localStorage.getItem('username') || 'Guest';
     var accountNameSpan = document.getElementById('accountName');
