@@ -185,7 +185,17 @@
         <div class="result-detail" id="result-detail"></div>
         <a class="back-btn" id="back-btn" href="#">Quay lại bài toán</a>
     </div>
+    <script src="avatar.js"></script>
     <script>
+        // Bắt buộc kiểm tra đăng nhập và chọn bài toán
+        if (!localStorage.getItem('username')) {
+            window.location.href = "login.html";
+        }
+        if (!localStorage.getItem('currentProblemName')) {
+            alert('Vui lòng chọn bài toán trước khi nộp!');
+            window.location.href = 'account.html';
+        }
+
         // Lấy submissionId từ URL
         const urlParams = new URLSearchParams(window.location.search);
         const submissionId = urlParams.get('id');
@@ -250,7 +260,7 @@
             statusEl.innerText = data.status === "Accepted" ? "Accepted (Chính xác)" :
                                 data.status === "Wrong Answer" ? "Sai đáp án" :
                                 data.status === "Compile Error" ? "Lỗi biên dịch" :
-                                data.status === "Time Limit" ? "Quá thời gian" :
+                                data.status === "Time Limit Exceeded" ? "Quá thời gian" :
                                 data.status === "Pending" ? "Đang chấm..." :
                                 data.status === "Running" ? "Đang chạy testcase..." :
                                 data.status || "";
@@ -261,6 +271,11 @@
             if (data.status === "Pending" || data.status === "Running") {
                 setTimeout(pollResult, 2000);
             }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('username');
+            window.location.href = "login.html";
         }
 
         // Bắt đầu polling
