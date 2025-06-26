@@ -16,7 +16,9 @@ def run(code, inp):
     try:
         res = requests.post(url, json=req, timeout=10)
         if res.status_code != 200:
-            return "", "API ERR"
+            # In chi tiết lỗi ra màn hình để debug
+            print("API ERROR", res.status_code, res.text)
+            return "", f"API ERR: {res.status_code} {res.text}"
         out = res.json()
         return out.get("stdout", ""), out.get("stderr", "")
     except Exception as e:
