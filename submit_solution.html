@@ -337,47 +337,32 @@ int main() {
             // == ĐÂY LÀ CHỖ BẠN CẦN SỬA KHI CÓ BACKEND THẬT ==
             // ===========================
             // Ví dụ nếu backend có API như sau:
-            // fetch('/api/submit', {
-            //     method: 'POST',
-            //     headers: {'Content-Type': 'application/json'},
-            //     body: JSON.stringify({
-            //         problemName: problemName,
-            //         code: code,
-            //         lang: lang
-            //     })
-            // })
-            // .then(res => res.json())
-            // .then(data => {
-            //     if (data.submissionId) {
-            //         window.location.href = 'result.html?id=' + encodeURIComponent(data.submissionId);
-            //     } else {
-            //         alert(data.message || 'Có lỗi xảy ra khi nộp bài!');
-            //         submitBtn.disabled = false;
-            //         submitBtn.textContent = 'Submit!';
-            //     }
-            // })
-            // .catch(err => {
-            //     alert('Có lỗi xảy ra khi gửi dữ liệu tới server!');
-            //     submitBtn.disabled = false;
-            //     submitBtn.textContent = 'Submit!';
-            // });
-
-            // ===========================
-            // == DEMO MOCK: XÓA ĐI NẾU DÙNG BACKEND THẬT ==
-            // ===========================
-            // Giả lập submissionId random cho demo
-            const submissionId = Math.floor(Math.random() * 1000000).toString();
-            localStorage.setItem('mockStatus_' + submissionId, "Pending");
-            localStorage.setItem('mockScore_' + submissionId, "");
-            localStorage.setItem('mockDetail_' + submissionId, "");
-            setTimeout(() => {
-                localStorage.setItem('mockStatus_' + submissionId, "Accepted");
-                localStorage.setItem('mockScore_' + submissionId, "100/100");
-                localStorage.setItem('mockDetail_' + submissionId, "Chúc mừng! Bài làm đúng toàn bộ test.");
-            }, 4000);
-            window.location.href = 'result.html?id=' + encodeURIComponent(submissionId);
-            // ===========================
-
+            fetch('/api/submit', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    problemName: problemName,
+                    code: code,
+                    lang: lang
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.submissionId) {
+                    window.location.href = 'result.html?id=' + encodeURIComponent(data.submissionId);
+                } else if (data.error) {
+                    alert("Lỗi: " + data.error);
+                } else {
+                    alert('Có lỗi xảy ra khi nộp bài!');
+                }
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit!';
+            })
+            .catch(err => {
+                alert('Có lỗi xảy ra khi gửi dữ liệu tới server!');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit!';
+            });
         });
 
         function handleLogout() {
